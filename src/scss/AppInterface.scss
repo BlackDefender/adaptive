@@ -1,0 +1,37 @@
+*{
+    box-sizing: border-box;
+}
+.app-interface{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 500px;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    z-index: 10000000;
+    max-width: 100%;
+}
+
+.inputs-block{
+    display: grid;
+    grid-template-columns: auto 1fr;
+    row-gap: 10px;
+    margin-bottom: 15px;
+}
+.layout-width-container,
+.base-selector-container,
+.from-width-container{
+    grid-column-end: span 2;
+}
+.use-window-width-container{
+    margin: auto 0 auto 15px;
+}
+
+.code-container-wrap{
+    margin-bottom: 20px;
+}
+
+.calculate-button-wrap{
+    margin-top: 20px;
+}

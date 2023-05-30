@@ -1,0 +1,43 @@
+.calculate-button{
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 40px;
+    margin: 10px 0 0;
+    border: none;
+    background-color: #2e7e3b;
+    font-size: 16px;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    overflow: hidden;
+    box-sizing: border-box;
+    outline: none;
+}
+.calculate-button:hover {
+    background-color: #20592a;
+}
+
+.default-text,
+.done-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    transition: transform 0.3s;
+    line-height: 40px;
+}
+
+.done-text{
+    transform: translateY(100%);
+}
+
+.calculate-button.animated .default-text{
+    transform: translateY(-100%);
+}
+
+.calculate-button.animated .done-text{
+    transform: translateY(0);
+}

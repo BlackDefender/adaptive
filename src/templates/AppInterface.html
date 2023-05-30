@@ -1,0 +1,35 @@
+<template id="app-interface-template">
+  <div class="app-interface">
+    <div class="inputs-block">
+      <div class="layout-width-container">
+        <slot name="layout-width"></slot>
+      </div>
+      <div class="base-selector-container">
+        <slot name="base-selector"></slot>
+      </div>
+
+      <div class="from-width-container">
+        <slot name="from-width"></slot>
+      </div>
+      <div class="to-width-container">
+        <slot name="to-width"></slot>
+      </div>
+      <div class="use-window-width-container">
+        <slot name="use-window-width"></slot>
+      </div>
+    </div>
+
+    <div class="code-container-wrap">
+      <slot name="code-container-1"></slot>
+    </div>
+    <div class="code-container-wrap">
+      <slot name="code-container-2"></slot>
+    </div>
+    <div class="settings-block">
+      <slot name="settings-check-box"></slot>
+    </div>
+    <div class="calculate-button-wrap">
+      <slot name="calculate-button"></slot>
+    </div>
+  </div>
+</template>
