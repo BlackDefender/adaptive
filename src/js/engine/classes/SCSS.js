@@ -1,6 +1,5 @@
 import StyleNode from './StyleNode'
 import Logger from './Logger'
-import LineByLineParser from './LineByLineParser'
 import Settings from './Settings'
 import ASTParser from './ASTParser'
 
@@ -22,12 +21,7 @@ export default class SCSS {
             return new StyleNode('')
         }
         const settings = Settings.getInstance()
-        let parser
-        if (settings.parser === 'ast') {
-            parser = new ASTParser(this.scss)
-        } else {
-            parser = new LineByLineParser(this.scss)
-        }
+        const parser = new ASTParser(this.scss)
         return parser.parse()
     }
 }

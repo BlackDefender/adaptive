@@ -1,7 +1,6 @@
 import makeAdaptive from './engine/makeAdaptive';
 import textToClipboard from './textToClipboard';
 
-
 class Adaptive {
     #inputElement;
     #outputElement;
@@ -85,7 +84,6 @@ class Adaptive {
             shake: false,
             unlockToStartValue: false,
             wrapIntoMedia: true,
-            parser: 'ast', // TODO - delete option
         };
     }
 
