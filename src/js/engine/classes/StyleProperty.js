@@ -119,41 +119,6 @@ export default class StyleProperty {
     }
 
     cssLockAvailable() {
-        return [
-            'border-width',
-            'border-top-width',
-            'border-right-width',
-            'border-left-width',
-            'border-bottom-width',
-            'border-radius',
-            'bottom',
-            'flex-basis',
-            'font-size',
-            'height',
-            'left',
-            'line-height',
-            'margin',
-            'margin-bottom',
-            'margin-left',
-            'margin-right',
-            'margin-top',
-            'max-height',
-            'max-width',
-            'min-height',
-            'min-width',
-            'outline-width',
-            'padding',
-            'padding-bottom',
-            'padding-left',
-            'padding-right',
-            'padding-top',
-            'right',
-            'top',
-            'width',
-            'grid-gap',
-            'column-gap',
-            'row-gap',
-            'gap',
-        ].includes(this.name);
+        return Settings.getInstance().styleProperties.includes(this.name);
     }
 }

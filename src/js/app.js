@@ -37,6 +37,13 @@ class Adaptive {
         this.bindSetting('shake', interfaceElement.querySelector('.check-box-shake'), 'checked');
 
         this.#calculateButtonElement.addEventListener('click', this.calculate.bind(this));
+
+        this.loadStyleProperties();
+    }
+
+    async loadStyleProperties() {
+        const result = await fetch('style-properties.json');
+        this.#settings.styleProperties = await result.json();
     }
 
     calculate() {
@@ -80,6 +87,7 @@ class Adaptive {
             shake: false,
             unlockToStartValue: false,
             wrapIntoMedia: true,
+            styleProperties: [],
         };
     }
 
