@@ -1,27 +1,27 @@
-let instanceId = Symbol('instanceId')
-let instanceSecurityKey = Symbol('instanceSecurityKey')
+const instanceId = Symbol('instanceId');
+const instanceSecurityKey = Symbol('instanceSecurityKey');
 
 export default class Settings {
-    constructor (securityKey) {
-        if (securityKey !== instanceSecurityKey) throw new Error('Use .getInstance() instead of new!')
+    constructor(securityKey) {
+        if (securityKey !== instanceSecurityKey) throw new Error('Use .getInstance() instead of new!');
     }
 
-    setSettings (data) {
-        Object.assign(this, data)
+    setSettings(data) {
+        Object.assign(this, data);
     }
 
-    static getInstance () {
+    static getInstance() {
         if (!this[instanceId]) {
-            this[instanceId] = new this(instanceSecurityKey)
+            this[instanceId] = new this(instanceSecurityKey);
         }
-        return this[instanceId]
+        return this[instanceId];
     }
 
-    get indent () {
-        return ' '.repeat(this.indentSize)
+    get indent() {
+        return ' '.repeat(this.indentSize);
     }
 
-    indentLevel (level) {
-        return this.indent.repeat(level)
+    indentLevel(level) {
+        return this.indent.repeat(level);
     }
 }

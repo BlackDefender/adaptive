@@ -2,6 +2,7 @@ class CodeContainer extends BaseComponent {
     #inputField;
     #modeButton;
     #codeContainer;
+
     constructor() {
         super();
         this.init(this.constructor.name);
@@ -34,6 +35,7 @@ class CodeContainer extends BaseComponent {
     get value() {
         return this.#inputField.value;
     }
+
     set value(val) {
         this.#inputField.value = val;
     }

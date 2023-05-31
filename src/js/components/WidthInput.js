@@ -1,6 +1,7 @@
 class WidthInput extends BaseComponent {
     #label;
     #input;
+
     constructor() {
         super();
         this.init(this.constructor.name);

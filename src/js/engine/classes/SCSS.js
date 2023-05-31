@@ -1,27 +1,27 @@
-import StyleNode from './StyleNode'
-import Logger from './Logger'
-import Settings from './Settings'
-import ASTParser from './ASTParser'
+import StyleNode from './StyleNode';
+import Logger from './Logger';
+import Settings from './Settings';
+import ASTParser from './ASTParser';
 
 export default class SCSS {
-    constructor (scss) {
-        this.scss = scss
+    constructor(scss) {
+        this.scss = scss;
     }
 
-    validate () {
+    validate() {
         if (this.scss.trim().length === 0) {
-            Logger.getInstance().log('ERROR: Input is empty')
-            return false
+            Logger.getInstance().log('ERROR: Input is empty');
+            return false;
         }
-        return true
+        return true;
     }
 
-    parse () {
+    parse() {
         if (!this.validate()) {
-            return new StyleNode('')
+            return new StyleNode('');
         }
-        const settings = Settings.getInstance()
-        const parser = new ASTParser(this.scss)
-        return parser.parse()
+        const settings = Settings.getInstance();
+        const parser = new ASTParser(this.scss);
+        return parser.parse();
     }
 }

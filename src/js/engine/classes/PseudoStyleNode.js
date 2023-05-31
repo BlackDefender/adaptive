@@ -1,16 +1,20 @@
-import StyleNode from './StyleNode'
+import StyleNode from './StyleNode';
+
 export default class PseudoStyleNode extends StyleNode {
-    constructor () {
-        super('')
-        this._levelComputingStartValue = -1
+    constructor() {
+        super('');
+        this._levelComputingStartValue = -1;
     }
-    static get iSPseudo () {
-        return true
+
+    static get iSPseudo() {
+        return true;
     }
-    toLockString () {
-        return `${this._childNodesToLockString()}\n`
+
+    toLockString() {
+        return `${this._childNodesToLockString()}\n`;
     }
-    toUnlockString () {
-        return `${this._childNodesToUnlockString()}\n`
+
+    toUnlockString() {
+        return `${this._childNodesToUnlockString()}\n`;
     }
 }

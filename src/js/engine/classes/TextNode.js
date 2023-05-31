@@ -1,24 +1,24 @@
 export default class TextNode {
-    constructor (data) {
-        this.data = data
+    constructor(data) {
+        this.data = data;
     }
 
-    addNewValue () {
+    addNewValue() {
     }
 
-    toString () {
-        return this.data
+    toString() {
+        return this.data;
     }
 
-    toLockString () {
-        return this.data
+    toLockString() {
+        return this.data;
     }
 
-    toUnlockString () {
-        return this.data
+    toUnlockString() {
+        return this.data;
     }
 
-    get saveOnShake () {
-        return false
+    get saveOnShake() {
+        return false;
     }
 }

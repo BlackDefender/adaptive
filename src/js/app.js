@@ -19,11 +19,11 @@ class Adaptive {
 
         const that = this;
         this.#settings = new Proxy(this.loadSettings(), {
-            set (target, prop, val) {
+            set(target, prop, val) {
                 target[prop] = val;
                 that.saveSettings();
                 return true;
-            }
+            },
         });
 
         this.bindData(this.#settings, 'layoutWidth', interfaceElement.querySelector('.layout-width'), 'value');
@@ -39,7 +39,7 @@ class Adaptive {
         this.#calculateButtonElement.addEventListener('click', this.calculate.bind(this));
     }
 
-    calculate () {
+    calculate() {
         if (this.#config.calculateButtonIsBlocked) return;
         this.#config.calculateButtonIsBlocked = true;
         this.output = ''
@@ -66,7 +66,6 @@ class Adaptive {
         element[parameter] = object[property];
         element.addEventListener('input', () => {
             object[property] = element[parameter];
-            console.log(object);
         });
     }
 

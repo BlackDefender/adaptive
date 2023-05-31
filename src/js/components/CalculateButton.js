@@ -1,5 +1,6 @@
 class CalculateButton extends BaseComponent{
     #button;
+
     constructor() {
         super();
         this.init(this.constructor.name);

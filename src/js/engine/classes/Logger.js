@@ -1,34 +1,34 @@
-const instanceId = Symbol('instanceId')
-const instanceSecurityKey = Symbol('instanceSecurityKey')
+const instanceId = Symbol('instanceId');
+const instanceSecurityKey = Symbol('instanceSecurityKey');
 
 export default class Logger {
-    constructor (securityKey) {
-        if (securityKey !== instanceSecurityKey) throw new Error('Use .getInstance instead of new!')
-        this.logs = []
+    constructor(securityKey) {
+        if (securityKey !== instanceSecurityKey) throw new Error('Use .getInstance instead of new!');
+        this.logs = [];
     }
 
-    static getInstance () {
+    static getInstance() {
         if (!this[instanceId]) {
-            this[instanceId] = new this(instanceSecurityKey)
+            this[instanceId] = new this(instanceSecurityKey);
         }
-        return this[instanceId]
+        return this[instanceId];
     }
 
-    log (message) {
-        this.logs.push(message)
+    log(message) {
+        this.logs.push(message);
     }
 
-    clear () {
-        this.logs = []
+    clear() {
+        this.logs = [];
     }
 
-    getLogs () {
+    getLogs() {
+        return this.logs;
+    }
+
+    getLogsFormatted() {
         return this.logs
-    }
-
-    getLogsFormatted () {
-        return this.logs
-            .map(item => `<div class="log-message">${item}</div>`)
-            .join('')
+            .map((item) => `<div class="log-message">${item}</div>`)
+            .join('');
     }
 }

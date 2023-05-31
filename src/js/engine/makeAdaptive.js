@@ -1,39 +1,39 @@
-import Settings from './classes/Settings'
-import Logger from './classes/Logger'
-import SCSS from './classes/SCSS'
-import BrowserStyles from './classes/BrowserStyles'
-import MediaNode from './classes/MediaNode'
+import Settings from './classes/Settings';
+import Logger from './classes/Logger';
+import SCSS from './classes/SCSS';
+import BrowserStyles from './classes/BrowserStyles';
+import MediaNode from './classes/MediaNode';
 
-BrowserStyles.getInstance().modify()
+BrowserStyles.getInstance().modify();
 
 const makeAdaptive = (input, config) => {
-    const settings = Settings.getInstance()
+    const settings = Settings.getInstance();
 
-    settings.setSettings(config)
+    settings.setSettings(config);
 
-    Logger.getInstance().clear()
-    let scss = new SCSS(input)
-    const styleTree = scss.parse()
-    styleTree.addCurrentStyleValues()
+    Logger.getInstance().clear();
+    const scss = new SCSS(input);
+    const styleTree = scss.parse();
+    styleTree.addCurrentStyleValues();
 
     if (settings.shake) {
-        styleTree.shake()
+        styleTree.shake();
     }
 
-    let output = styleTree.toLockString()
+    let output = styleTree.toLockString();
 
     if (settings.addUnlock) {
-        let unlock = `\n\n`
-        if (styleTree.constructor === MediaNode) styleTree.setWidth(settings.toWidth)
-        styleTree.shake()
-        unlock += styleTree.toUnlockString()
-        output += unlock
+        let unlock = '\n\n';
+        if (styleTree.constructor === MediaNode) styleTree.setWidth(settings.toWidth);
+        styleTree.shake();
+        unlock += styleTree.toUnlockString();
+        output += unlock;
     }
 
     return {
         output,
-        logs: Logger.getInstance().getLogs()
-    }
-}
+        logs: Logger.getInstance().getLogs(),
+    };
+};
 
-export default makeAdaptive
+export default makeAdaptive;
