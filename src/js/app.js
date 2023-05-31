@@ -1,5 +1,5 @@
+import Logger from './engine/classes/Logger';
 import makeAdaptive from './engine/makeAdaptive';
-import textToClipboard from './textToClipboard';
 
 class Adaptive {
     #inputElement;
@@ -26,15 +26,15 @@ class Adaptive {
             },
         });
 
-        this.bindData(this.#settings, 'layoutWidth', interfaceElement.querySelector('.layout-width'), 'value');
-        this.bindData(this.#settings, 'fromWidth', interfaceElement.querySelector('.from-width'), 'value');
-        this.bindData(this.#settings, 'toWidth', interfaceElement.querySelector('.to-width'), 'value');
-        this.bindData(this.#settings, 'inputCode', this.#inputElement, 'value');
-        this.bindData(this.#settings, 'copyToClipboard', interfaceElement.querySelector('.check-box-copy-to-clipboard'), 'checked');
-        this.bindData(this.#settings, 'wrapIntoMedia', interfaceElement.querySelector('.check-box-wrap-into-media'), 'checked');
-        this.bindData(this.#settings, 'addUnlock', interfaceElement.querySelector('.check-box-add-unlock'), 'checked');
-        this.bindData(this.#settings, 'unlockToStartValue', interfaceElement.querySelector('.check-box-unlock-to-start-value'), 'checked');
-        this.bindData(this.#settings, 'shake', interfaceElement.querySelector('.check-box-shake'), 'checked');
+        this.bindSetting('layoutWidth', interfaceElement.querySelector('.layout-width'), 'value');
+        this.bindSetting('fromWidth', interfaceElement.querySelector('.from-width'), 'value');
+        this.bindSetting('toWidth', interfaceElement.querySelector('.to-width'), 'value');
+        this.bindSetting('inputCode', this.#inputElement, 'value');
+        this.bindSetting('copyToClipboard', interfaceElement.querySelector('.check-box-copy-to-clipboard'), 'checked');
+        this.bindSetting('wrapIntoMedia', interfaceElement.querySelector('.check-box-wrap-into-media'), 'checked');
+        this.bindSetting('addUnlock', interfaceElement.querySelector('.check-box-add-unlock'), 'checked');
+        this.bindSetting('unlockToStartValue', interfaceElement.querySelector('.check-box-unlock-to-start-value'), 'checked');
+        this.bindSetting('shake', interfaceElement.querySelector('.check-box-shake'), 'checked');
 
         this.#calculateButtonElement.addEventListener('click', this.calculate.bind(this));
     }
@@ -42,34 +42,31 @@ class Adaptive {
     calculate() {
         if (this.#config.calculateButtonIsBlocked) return;
         this.#config.calculateButtonIsBlocked = true;
-        this.output = ''
         try {
-            const result = makeAdaptive(this.#inputElement.value, this.#settings)
+            const result = makeAdaptive(this.#inputElement.value, this.#settings);
             this.#outputElement.value = result.output;
-            console.log(this.#outputElement);
-            console.log(result);
-            // if (this.settings.copyToClipboard) {
-            //     textToClipboard(result.output)
-            // }
+            if (this.#settings.copyToClipboard) {
+                this.constructor.copyToClipboard(result.output);
+            }
         } catch (e) {
-            // Logger.getInstance().log(e.toString())
-            // console.error(e)
+            Logger.getInstance().log(e.toString());
+            console.error(e);
         }
         // this.$refs.logContainer.innerHTML = Logger.getInstance().getLogsFormatted()
         this.#calculateButtonElement.animate();
         setTimeout(() => {
             this.#config.calculateButtonIsBlocked = false;
-        }, 1000)
+        }, 1000);
     }
 
-    bindData(object, property, element, parameter) {
-        element[parameter] = object[property];
+    bindSetting(property, element, parameter) {
+        element[parameter] = this.#settings[property];
         element.addEventListener('input', () => {
-            object[property] = element[parameter];
+            this.#settings[property] = element[parameter];
         });
     }
 
-    get defaultSettings() {
+    static defaultSettings() {
         return {
             baseSelector: '',
             indentSize: 4,
@@ -87,14 +84,14 @@ class Adaptive {
     }
 
     loadSettings() {
-        if (localStorage === undefined) return this.defaultSettings;
+        if (localStorage === undefined) return this.constructor.defaultSettings();
         const loadedSettingsStr = localStorage.getItem(this.#config.storageKey);
-        if (!loadedSettingsStr) return this.defaultSettings;
+        if (!loadedSettingsStr) return this.constructor.defaultSettings();
 
-        const settings = this.defaultSettings;
+        const settings = this.constructor.defaultSettings();
         try {
             const loadedSettings = JSON.parse(loadedSettingsStr);
-            for (let param in settings) {
+            for (const param in settings) {
                 if (settings.hasOwnProperty(param) && loadedSettings.hasOwnProperty(param)) {
                     settings[param] = loadedSettings[param];
                 }
@@ -102,7 +99,7 @@ class Adaptive {
         } catch (e) {
             console.error('Settings can\'t be loaded. Use default settings.');
             console.error(e);
-            return this.defaultSettings;
+            return this.defaultSettings();
         }
         return settings;
     }
@@ -111,6 +108,16 @@ class Adaptive {
         if (!localStorage) return;
         localStorage.setItem(this.#config.storageKey, JSON.stringify(this.#settings));
     }
+
+    static copyToClipboard(text) {
+        const element = document.createElement('textarea');
+        element.style.position = 'fixed';
+        element.style.top = '-100vh';
+        document.body.appendChild(element);
+        element.value = text;
+        element.select();
+        document.execCommand('copy');
+        document.body.removeChild(element);
+    }
 }
 const adaptive = new Adaptive();
-
