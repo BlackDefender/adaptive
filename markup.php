@@ -27,6 +27,7 @@ function loadTemplates($dirPath) {
     <check-box slot="settings-check-box" class="check-box-unlock-to-start-value" data-title="Unlock to start value"></check-box>
     <check-box slot="settings-check-box" class="check-box-shake" data-title="Shake"></check-box>
     <calculate-button slot="calculate-button" class="calculate-button"></calculate-button>
+    <logs-container slot="logs-container" class="logs-container"></logs-container>
 </app-interface>
     `;
     const parser = new DOMParser();

@@ -1,0 +1,8 @@
+.logs-container{
+    max-height: 200px;
+    overflow: auto;
+    .log-message{
+        padding: 5px 0;
+        font-size: 16px;
+    }
+}

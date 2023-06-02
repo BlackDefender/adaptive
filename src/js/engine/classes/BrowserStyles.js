@@ -54,13 +54,13 @@ export default class BrowserStyles {
                 .map((item) => item.trim());
             return {
                 conditon: conditionArray[0],
-                value: parseInt(conditionArray[1]),
+                value: parseInt(conditionArray[1], 10),
             };
         };
 
         const settings = Settings.getInstance();
-        let fromWidth = parseInt(settings.fromWidth);
-        let toWidth = parseInt(settings.toWidth);
+        let fromWidth = parseInt(settings.fromWidth, 10);
+        let toWidth = parseInt(settings.toWidth, 10);
         // width always from bigger to smaller
         if (toWidth > fromWidth) {
             [fromWidth, toWidth] = [toWidth, fromWidth];

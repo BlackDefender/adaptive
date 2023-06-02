@@ -1,6 +1,5 @@
 import StyleNode from './StyleNode';
 import Logger from './Logger';
-import Settings from './Settings';
 import ASTParser from './ASTParser';
 
 export default class SCSS {
@@ -20,7 +19,6 @@ export default class SCSS {
         if (!this.validate()) {
             return new StyleNode('');
         }
-        const settings = Settings.getInstance();
         const parser = new ASTParser(this.scss);
         return parser.parse();
     }

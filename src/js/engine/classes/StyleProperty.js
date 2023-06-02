@@ -13,8 +13,12 @@ export default class StyleProperty {
         return /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(value);
     }
 
-    static isVariable(value) {
+    static isSCSSVariable(value) {
         return value.charAt(0) === '$';
+    }
+
+    static isCSSVariable(value) {
+        return value.substring(0, 3) === 'var';
     }
 
     static isDimensionless(value) {
@@ -41,7 +45,7 @@ export default class StyleProperty {
     static prepareValueToUnlock(value) {
         return value
             .split(' ')
-            .map((item) => (parseInt(item) === 0 ? 0 : item))
+            .map((item) => (parseInt(item, 10) === 0 ? 0 : item))
             .join(' ');
     }
 
@@ -52,7 +56,8 @@ export default class StyleProperty {
             || newValue === undefined
             || newValue === ''
             || this.constructor.isHEXColor(newValue)
-            || this.constructor.isVariable(newValue)
+            || this.constructor.isSCSSVariable(newValue)
+            || this.constructor.isCSSVariable(newValue)
             || (this.name === 'line-height' && this.constructor.isDimensionless(this.value))
             || this.value === 'auto') {
             return;
@@ -80,14 +85,29 @@ export default class StyleProperty {
         return null;
     }
 
-    static makeString(fromVal, toVal, fromWidth, toWidth) {
-        if (fromVal === 'auto') return 'auto';
-        fromVal = Math.round(parseFloat(fromVal));
-        toVal = Math.round(parseFloat(toVal));
+    static makeString(fromValStr, toValStr, fromWidth, toWidth) {
+        if (fromValStr === 'auto') return 'auto';
+        const fromVal = this.round(fromValStr);
+        const toVal = this.round(toValStr);
+        // const units = this.getUnits(fromValStr);
         if (fromVal === toVal) {
             return fromVal + ((fromVal > 0) ? 'px' : '');
         }
         return `calc(${fromVal}px + (${fromVal} - ${toVal}) * (100vw - ${fromWidth}px) / (${fromWidth} - ${toWidth}))`;
+    }
+
+    /* static getUnits(val) {
+        const supportedUnits = ['px', 'em', 'rem'];
+        const m = val.match(/\D+$/);
+        const unit = m && m[0];
+        if (unit && supportedUnits.indexOf(unit) === -1) {
+            return 'px';
+        }
+        return unit;
+    } */
+
+    static round(val) {
+        return Math.round((parseFloat(val) + Number.EPSILON) * 100) / 100;
     }
 
     static valueByIndex(propertyString, index) {

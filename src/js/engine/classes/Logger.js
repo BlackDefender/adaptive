@@ -25,10 +25,4 @@ export default class Logger {
     getLogs() {
         return this.logs;
     }
-
-    getLogsFormatted() {
-        return this.logs
-            .map((item) => `<div class="log-message">${item}</div>`)
-            .join('');
-    }
 }

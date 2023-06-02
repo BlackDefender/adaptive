@@ -5,8 +5,8 @@
   "private": true,
   "scripts": {
     "dev": "webpack --mode=development --watch",
-    "run-once-dev": "webpack --mode=development",
     "prod": "webpack --mode=production --watch",
+    "run-once-dev": "webpack --mode=development",
     "run-once-prod": "webpack --mode=production",
     "dev-browser-sync": "set BrowserSync=true& webpack --mode=development --watch",
     "prod-browser-sync": "set BrowserSync=true& webpack --mode=production --watch"

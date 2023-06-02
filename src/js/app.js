@@ -4,6 +4,7 @@ import makeAdaptive from './engine/makeAdaptive';
 class Adaptive {
     #inputElement;
     #outputElement;
+    #logsElement;
     #calculateButtonElement;
     #settings = {};
     #config = {
@@ -15,6 +16,7 @@ class Adaptive {
         const interfaceElement = document.querySelector('app-interface');
         this.#inputElement = interfaceElement.querySelector('.input-code');
         this.#outputElement = interfaceElement.querySelector('.output-code');
+        this.#logsElement = interfaceElement.querySelector('.logs-container');
         this.#calculateButtonElement = interfaceElement.querySelector('.calculate-button');
 
         const that = this;
@@ -59,7 +61,7 @@ class Adaptive {
             Logger.getInstance().log(e.toString());
             console.error(e);
         }
-        // this.$refs.logContainer.innerHTML = Logger.getInstance().getLogsFormatted()
+        this.#logsElement.logAll(Logger.getInstance().getLogs());
         this.#calculateButtonElement.animate();
         setTimeout(() => {
             this.#config.calculateButtonIsBlocked = false;

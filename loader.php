@@ -16,6 +16,7 @@ include 'src/js/components/CheckBox.js';
 include 'src/js/components/CalculateButton.js';
 include 'src/js/components/BaseSelector.js';
 include 'src/js/components/AppInterface.js';
+include 'src/js/components/LogsContainer.js';
 
 include 'dist/js/app.js';
 
