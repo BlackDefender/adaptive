@@ -4,9 +4,11 @@ import makeAdaptive from './engine/makeAdaptive';
 class Adaptive {
     #inputElement;
     #outputElement;
+    #toWidthElement;
     #logsElement;
     #calculateButtonElement;
     #settings = {};
+    #settingsWatchers = {};
     #config = {
         storageKey: 'adaptiveSettings',
         calculateButtonIsBlocked: false,
@@ -16,6 +18,7 @@ class Adaptive {
         const interfaceElement = document.querySelector('app-interface');
         this.#inputElement = interfaceElement.querySelector('.input-code');
         this.#outputElement = interfaceElement.querySelector('.output-code');
+        this.#toWidthElement = interfaceElement.querySelector('.to-width');
         this.#logsElement = interfaceElement.querySelector('.logs-container');
         this.#calculateButtonElement = interfaceElement.querySelector('.calculate-button');
 
@@ -23,6 +26,9 @@ class Adaptive {
         this.#settings = new Proxy(this.loadSettings(), {
             set(target, prop, val) {
                 target[prop] = val;
+                Object.getOwnPropertyNames(that.#settingsWatchers).forEach((settingName) => {
+                    that.#settingsWatchers[settingName].forEach((callback) => callback());
+                });
                 that.saveSettings();
                 return true;
             },
@@ -30,15 +36,26 @@ class Adaptive {
 
         this.bindSetting('layoutWidth', interfaceElement.querySelector('.layout-width'), 'value');
         this.bindSetting('fromWidth', interfaceElement.querySelector('.from-width'), 'value');
-        this.bindSetting('toWidth', interfaceElement.querySelector('.to-width'), 'value');
+        this.bindSetting('toWidth', this.#toWidthElement, 'value');
         this.bindSetting('inputCode', this.#inputElement, 'value');
         this.bindSetting('copyToClipboard', interfaceElement.querySelector('.check-box-copy-to-clipboard'), 'checked');
         this.bindSetting('wrapIntoMedia', interfaceElement.querySelector('.check-box-wrap-into-media'), 'checked');
         this.bindSetting('addUnlock', interfaceElement.querySelector('.check-box-add-unlock'), 'checked');
         this.bindSetting('unlockToStartValue', interfaceElement.querySelector('.check-box-unlock-to-start-value'), 'checked');
         this.bindSetting('shake', interfaceElement.querySelector('.check-box-shake'), 'checked');
+        this.bindSetting('useWindowWidth', interfaceElement.querySelector('.use-window-width'), 'checked');
 
         this.#calculateButtonElement.addEventListener('click', this.calculate.bind(this));
+
+        this.watchSetting('useWindowWidth', () => {
+            if (!this.#settings.useWindowWidth) return;
+            this.#toWidthElement.value = window.innerWidth;
+        });
+
+        window.addEventListener('resize', () => {
+            if (!this.#settings.useWindowWidth) return;
+            this.#toWidthElement.value = window.innerWidth;
+        });
 
         this.loadStyleProperties();
     }
@@ -46,6 +63,13 @@ class Adaptive {
     async loadStyleProperties() {
         const result = await fetch('style-properties.json');
         this.#settings.styleProperties = await result.json();
+    }
+
+    watchSetting(settingName, callback) {
+        if (!this.#settingsWatchers[settingName]) {
+            this.#settingsWatchers[settingName] = [];
+        }
+        this.#settingsWatchers[settingName].push(callback);
     }
 
     calculate() {
@@ -89,6 +113,7 @@ class Adaptive {
             shake: false,
             unlockToStartValue: false,
             wrapIntoMedia: true,
+            useWindowWidth: false,
             styleProperties: [],
         };
     }
