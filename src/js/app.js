@@ -15,6 +15,8 @@ class Adaptive {
     };
 
     constructor() {
+        this.loadStyleProperties();
+
         const interfaceElement = document.querySelector('app-interface');
         this.#inputElement = interfaceElement.querySelector('.input-code');
         this.#outputElement = interfaceElement.querySelector('.output-code');
@@ -56,8 +58,6 @@ class Adaptive {
             if (!this.#settings.useWindowWidth) return;
             this.#toWidthElement.value = window.innerWidth;
         });
-
-        this.loadStyleProperties();
     }
 
     async loadStyleProperties() {

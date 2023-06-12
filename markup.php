@@ -14,6 +14,7 @@ function loadTemplates($dirPath) {
 <?php loadTemplates('dist/templates'); ?>
 
 <app-interface>
+    <app-header slot="app-header"></app-header>
     <width-input slot="layout-width" class="layout-width" data-title="Layout width:"></width-input>
     <base-selector slot="base-selector" class="base-selector" data-title="Base selector:"></base-selector>
     <width-input slot="from-width" class="from-width" data-title="From:"></width-input>

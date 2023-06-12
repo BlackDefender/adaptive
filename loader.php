@@ -10,6 +10,7 @@ echo 'const baseUrl = "' . $baseUrl . '";';
 include 'markup.php';
 
 include 'src/js/components/BaseComponent.js';
+include 'src/js/components/AppHeader.js';
 include 'src/js/components/WidthInput.js';
 include 'src/js/components/CodeContainer.js';
 include 'src/js/components/CheckBox.js';

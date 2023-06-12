@@ -1,7 +1,26 @@
 .checkbox-container {
+    position: relative;
     display: flex;
     align-items: center;
     cursor: pointer;
+    &::before{
+        content: '';
+        pointer-events: none;
+        box-sizing: border-box;
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        border: 1px dashed gray;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+    }
+    &:hover{
+        &::before{
+            opacity: 1;
+        }
+    }
 }
 .checkbox-container:nth-child(n+2){
     margin: 3px 0 0 0;

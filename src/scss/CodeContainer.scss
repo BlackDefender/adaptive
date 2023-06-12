@@ -32,6 +32,14 @@ textarea{
     padding: 3px 5px;
     resize: none;
     outline: none;
+    &::-webkit-scrollbar {
+        width: 3px;
+        background-color: #dbdbdb;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: #828282;
+    }
 }
 .mode-button{
     position: absolute;

@@ -6,11 +6,14 @@
     top: 0;
     left: 0;
     width: 500px;
-    padding: 10px;
     background-color: #fff;
     border: 1px solid #ccc;
     z-index: 10000000;
     max-width: 100%;
+}
+
+.app-body{
+    padding: 10px;
 }
 
 .inputs-block{
