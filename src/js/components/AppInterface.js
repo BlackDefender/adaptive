@@ -1,9 +1,12 @@
+import BaseComponent from './BaseComponent';
+import html from '../../templates/AppInterface.html';
+import css from '../../scss/AppInterface.scss';
+
 class AppInterface extends BaseComponent {
     #interfaceElement;
 
     constructor() {
-        super();
-        this.init(this.constructor.name);
+        super(html, css);
         this.#interfaceElement = this.shadowRoot.querySelector('.app-interface');
     }
 

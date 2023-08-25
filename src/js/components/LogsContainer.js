@@ -1,9 +1,12 @@
-class LogsContainer extends BaseComponent{
+import BaseComponent from './BaseComponent';
+import html from '../../templates/LogsContainer.html';
+import css from '../../scss/LogsContainer.scss';
+
+class LogsContainer extends BaseComponent {
     #containerElement;
 
     constructor() {
-        super();
-        this.init(this.constructor.name);
+        super(html, css);
         this.#containerElement = this.shadowRoot.querySelector('.logs-container');
     }
 

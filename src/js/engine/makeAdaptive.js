@@ -10,11 +10,11 @@ const makeAdaptive = (input, config) => {
     const settings = Settings.getInstance();
 
     settings.setSettings(config);
-
     Logger.getInstance().clear();
     const scss = new SCSS(input);
     const styleTree = scss.parse();
     styleTree.addCurrentStyleValues();
+
 
     if (settings.shake) {
         styleTree.shake();

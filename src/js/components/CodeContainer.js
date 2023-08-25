@@ -1,11 +1,14 @@
+import BaseComponent from './BaseComponent';
+import html from '../../templates/CodeContainer.html';
+import css from '../../scss/CodeContainer.scss';
+
 class CodeContainer extends BaseComponent {
     #inputField;
     #modeButton;
     #codeContainer;
 
     constructor() {
-        super();
-        this.init(this.constructor.name);
+        super(html, css);
         const shadow = this.shadowRoot;
         this.#inputField = shadow.querySelector('textarea');
         const title = this.getAttribute('data-title');

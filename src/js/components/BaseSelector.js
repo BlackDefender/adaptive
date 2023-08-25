@@ -1,10 +1,13 @@
+import BaseComponent from './BaseComponent';
+import html from '../../templates/BaseSelector.html';
+import css from '../../scss/BaseSelector.scss';
+
 class BaseSelector extends BaseComponent {
     #label;
     #input;
 
     constructor() {
-        super();
-        this.init(this.constructor.name);
+        super(html, css);
 
         this.#label = this.shadowRoot.querySelector('.label');
         this.#input = this.shadowRoot.querySelector('.input');

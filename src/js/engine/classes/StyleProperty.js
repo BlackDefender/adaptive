@@ -25,8 +25,8 @@ export default class StyleProperty {
         return value.length > 0 && /^\d*\.*\d*$/i.test(value);
     }
 
-    static isValueInPercent(value) {
-        return value.includes('%');
+    static isNonPixelValue(value) {
+        return value.includes('%') || value.includes('em') || value.includes('fr');
     }
 
     static compareValue(oldValue, newValue) {
@@ -34,7 +34,7 @@ export default class StyleProperty {
         newValue = newValue.split(' ');
         return oldValue.map((item, index) => {
             if (item === 'auto') return item;
-            if (this.isValueInPercent(item)) return item;
+            if (this.isNonPixelValue(item)) return item;
             if ((item === '0' || item === '0px') && (newValue[index] === '0' || newValue[index] === '0px')) return item;
             if (index === 2 && newValue[index] === undefined) return newValue[0];
             if (index === 3 && newValue[index] === undefined) return newValue[1];
@@ -51,7 +51,6 @@ export default class StyleProperty {
 
     addNewValue(newValueObj) {
         const newValue = newValueObj.element || newValueObj.stylesheet || newValueObj.computed;
-
         if (!this.cssLockAvailable()
             || newValue === undefined
             || newValue === ''

@@ -1,5 +1,17 @@
 import Logger from './engine/classes/Logger';
 import makeAdaptive from './engine/makeAdaptive';
+import styleProperties from '../../style-properties.json';
+
+import html from '../templates/App.html';
+
+import AppHeader from './components/AppHeader';
+import WidthInput from './components/WidthInput';
+import CodeContainer from './components/CodeContainer';
+import CheckBox from './components/CheckBox';
+import CalculateButton from './components/CalculateButton';
+import BaseSelector from './components/BaseSelector';
+import AppInterface from './components/AppInterface';
+import LogsContainer from './components/LogsContainer';
 
 class Adaptive {
     #inputElement;
@@ -15,7 +27,9 @@ class Adaptive {
     };
 
     constructor() {
-        this.loadStyleProperties();
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        document.body.appendChild(doc.querySelector('app-interface'));
 
         const interfaceElement = document.querySelector('app-interface');
         this.#inputElement = interfaceElement.querySelector('.input-code');
@@ -58,11 +72,6 @@ class Adaptive {
             if (!this.#settings.useWindowWidth) return;
             this.#toWidthElement.value = window.innerWidth;
         });
-    }
-
-    async loadStyleProperties() {
-        const result = await fetch('style-properties.json');
-        this.#settings.styleProperties = await result.json();
     }
 
     watchSetting(settingName, callback) {
@@ -136,6 +145,7 @@ class Adaptive {
             console.error(e);
             return this.defaultSettings();
         }
+        settings.styleProperties = styleProperties;
         return settings;
     }
 

@@ -34,6 +34,7 @@ export default class ASTParser {
             stringValue = `#${astItem.value}`;
             break;
         case 'function':
+            //console.log(astItem);
             stringValue = this._reduceAstItemValue(astItem);
             break;
         case 'arguments':
@@ -72,7 +73,33 @@ export default class ASTParser {
     _convertDeclaration(astItem) {
         const property = astItem.value.find((item) => item.type === 'property').value.reduce((valueStr, item) => valueStr + this._stringifyAstItem(item), '');
         const value = astItem.value.find((item) => item.type === 'value').value.reduce((valueStr, item) => valueStr + this._stringifyAstItem(item), '');
+        console.log(astItem, new StyleProperty([property, value]));
         return new StyleProperty([property, value]);
+    }
+
+    #convertToStyleValueObjects(astValue) {
+        if (astValue[0].type !== 'space') astValue.unshift({ type: 'space' });
+        const result = [];
+        for (const item of astValue) {
+            switch (item.type) {
+            case 'space':
+                result.push({
+                    value: '',
+                    units: null,
+                });
+                break;
+            case 'operator':
+                result.at(-1).value += item.value;
+                break;
+            case 'number':
+                result.at(-1).type = 'number';
+                result.at(-1).value += item.value;
+                break;
+            case 'identifier':
+                result.at(-1).units = item.value;
+                break;
+            }
+        }
     }
 
     _ruleSelector(rule) {

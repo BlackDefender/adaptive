@@ -1,7 +1,10 @@
+import BaseComponent from './BaseComponent';
+import html from '../../templates/AppHeader.html';
+import css from '../../scss/AppHeader.scss';
+
 class AppHeader extends BaseComponent{
     constructor() {
-        super();
-        this.init(this.constructor.name);
+        super(html, css);
 
         const interfaceElement = document.querySelector('app-interface');
         const titleElement = this.shadowRoot.querySelector('.title');
@@ -42,7 +45,6 @@ class AppHeader extends BaseComponent{
             moveWindow = true;
             baseX = e.pageX;
             baseY = e.pageY;
-
         });
         document.addEventListener('mouseup', (e) => {
             if (!moveWindow) return;

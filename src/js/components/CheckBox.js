@@ -1,9 +1,12 @@
-class CheckBox extends BaseComponent {
+import BaseComponent from './BaseComponent';
+import html from '../../templates/CheckBox.html';
+import css from '../../scss/CheckBox.scss';
+
+export default class CheckBox extends BaseComponent {
     #input;
 
     constructor() {
-        super();
-        this.init(this.constructor.name);
+        super(html, css);
 
         const shadow = this.shadowRoot;
         this.#input = shadow.querySelector('input');

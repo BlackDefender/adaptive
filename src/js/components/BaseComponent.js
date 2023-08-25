@@ -1,23 +1,16 @@
-/* global: baseUrl
-
- */
-class BaseComponent extends HTMLElement {
-    constructor() {
+export default class BaseComponent extends HTMLElement {
+    constructor(html, css) {
         super();
-    }
-    init(componentName) {
+
         const shadow = this.attachShadow({ mode: 'open' });
 
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.href = `${baseUrl}dist/css/${componentName}.css`;
-        shadow.appendChild(link);
+        const style = document.createElement('style');
+        style.textContent = css;
+        shadow.appendChild(style);
 
-        const template = document.getElementById(`${this.constructor.toKebabCase(componentName)}-template`);
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const template = doc.querySelector('template');
         shadow.appendChild(template.content.cloneNode(true));
-    }
-
-    static toKebabCase(str) {
-        return str.replace(/[A-Z]+(?![a-z])|[A-Z]/g, ($, ofs) => (ofs ? '-' : '') + $.toLowerCase());
     }
 }

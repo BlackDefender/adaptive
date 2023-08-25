@@ -54,18 +54,22 @@ const getConfig = () => ({
         rules: [
             {
                 test: /\.html$/i,
-                type: 'asset/resource',
+                use: [
+                    'raw-loader',
+                ],
+                //type: 'asset/resource',
             },
             {
                 test: /\.s[ac]ss$/i,
                 use: [
-                    {
+                    /*{
                         loader: MiniCssExtractPlugin.loader,
                         options: {
                             publicPath: '../',
                         },
-                    },
-                    'css-loader',
+                    },*/
+                    'raw-loader',
+                    //'css-loader',
                     'postcss-loader',
                     'resolve-url-loader',
                     'sass-loader',

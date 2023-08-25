@@ -1,9 +1,12 @@
-class CalculateButton extends BaseComponent{
+import BaseComponent from './BaseComponent';
+import html from '../../templates/CalculateButton.html';
+import css from '../../scss/CalculateButton.scss';
+
+class CalculateButton extends BaseComponent {
     #button;
 
     constructor() {
-        super();
-        this.init(this.constructor.name);
+        super(html, css);
         this.#button = this.shadowRoot.querySelector('.calculate-button');
     }
 

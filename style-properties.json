@@ -40,5 +40,8 @@
   "row-gap",
   "gap",
   "block-size",
-  "inline-size"
+  "inline-size",
+  "inset",
+  "grid-template-columns",
+  "grid-template-rows"
 ]
