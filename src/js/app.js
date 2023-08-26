@@ -72,6 +72,16 @@ class Adaptive {
             if (!this.#settings.useWindowWidth) return;
             this.#toWidthElement.value = window.innerWidth;
         });
+
+        window.addEventListener('adaptiveApp/closeWindow', () => {
+            interfaceElement.style.display = 'none';
+        });
+        window.addEventListener('adaptivePlugin/closeWindow', () => {
+            interfaceElement.style.display = 'none';
+        });
+        window.addEventListener('adaptivePlugin/openWindow', () => {
+            interfaceElement.style.display = 'block';
+        });
     }
 
     watchSetting(settingName, callback) {

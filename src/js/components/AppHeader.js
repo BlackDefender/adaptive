@@ -12,7 +12,7 @@ class AppHeader extends BaseComponent{
         this.shadowRoot
             .querySelector('.close-button')
             .addEventListener('click', () => {
-                interfaceElement.style.display = 'none';
+                window.dispatchEvent(new Event('adaptiveApp/closeWindow'));
             });
 
         let moveWindow = false;
